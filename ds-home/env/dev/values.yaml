@@ -1,0 +1,27 @@
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  tls:
+    - hosts:
+      - dev-nc.corno.dev
+      secretName: nextcloud-tls
+  hosts:
+  - dev-nc.corno.dev
+nextcloud:
+  host: dev-nc.corno.dev
+
+postgresql:
+  enabled: true
+  persistence:
+    enabled: true
+    storageClass: csi-lvm-sc-mirror
+
+persistence:
+  # Nextcloud Data (/var/www/html)
+  enabled: false
+  storageClass: csi-lvm-sc-mirror
+  accessMode: ReadWriteOnce
+  size: 1Gi
