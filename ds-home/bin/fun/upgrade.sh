@@ -7,6 +7,5 @@ upgrade(){
     "${CHART_LOCATION}" \
     -f "${values_dir}"/values.yaml \
     -f <(sops -d "${values_dir}"/secrets.yaml) \
-    --namespace "${NAMESPACE}" \
-    --dry-run
+    --namespace "${NAMESPACE}"
 }

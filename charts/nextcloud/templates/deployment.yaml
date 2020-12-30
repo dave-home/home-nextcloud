@@ -216,7 +216,7 @@ spec:
           timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
           successThreshold: {{ .Values.startupProbe.successThreshold }}
           failureThreshold: {{ .Values.startupProbe.failureThreshold }}
-        {{- end }}            
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
@@ -299,7 +299,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         {{- end }}
-    
+
         resources:
 {{ toYaml .Values.nginx.resources | indent 10 }}
         volumeMounts:

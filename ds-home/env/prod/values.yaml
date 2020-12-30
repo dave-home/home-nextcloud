@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 4G
@@ -31,15 +31,26 @@ ingress:
       }
   tls:
     - hosts:
-      - dev-nc.corno.dev
+      - nc.corno.dev
       secretName: nextcloud-tls
   hosts:
-  - dev-nc.corno.dev
+  - nc.corno.dev
 nextcloud:
+  host: nc.corno.dev
   extraEnv:
     - name: OVERWRITEPROTOCOL
       value: https
-  host: dev-nc.corno.dev
+  mail:
+    enabled: true
+    fromAddress: dave
+    domain: corno.co.uk
+    smtp:
+      host: smtp.gmail.com
+      secure: ssl
+      port: 465
+      authtype: LOGIN
+      name: dave@corno.co.uk
+
 
 postgresql:
   enabled: true
@@ -52,7 +63,7 @@ persistence:
   enabled: true
   storageClass: csi-lvm-sc-mirror
   accessMode: ReadWriteOnce
-  size: 11Gi
+  size: 100Gi
 
 internalDatabase:
   enabled: false
@@ -60,5 +71,5 @@ internalDatabase:
 externalDatabase:
   enabled: true
   type: postgresql
-  host: nc-postgresql-0.nc-postgresql-headless.dev.svc.cluster.local
+  host: nc-postgresql-0.nc-postgresql-headless.prod.svc.cluster.local
   user: nextcloud
